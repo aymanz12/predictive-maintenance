@@ -1,0 +1,42 @@
+stages:
+  ingestion:
+    cmd: python -m src.data.ingestion
+    deps:
+      - src/data/ingestion.py
+      - src/config/config.yaml
+    outs:
+      - data/raw/predictive_maintenance.csv
+
+  preprocessing:
+    cmd: python -m src.data.preprocessing
+    deps:
+      - src/data/preprocessing.py
+      - src/config/config.yaml
+      - data/raw/predictive_maintenance.csv
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv
+
+  training:
+    cmd: python -m src.pipelines.training_pipeline
+    deps:
+      - src/pipelines/training_pipeline.py
+      - src/features/feature_engineering.py  
+      - src/config/config.yaml
+      - data/processed/train.csv
+    outs:
+      - models/xgboost_model.pkl
+      - models/feature_engineer.pkl
+
+  evaluation:
+    cmd: python -m src.pipelines.evaluation_pipeline
+    deps:
+      - src/pipelines/evaluation_pipeline.py
+      - src/config/config.yaml
+      - models/xgboost_model.pkl
+      - models/feature_engineer.pkl
+      - data/processed/test.csv
+    # We don't have 'outs' here because evaluation just logs to MLflow/Console
+    # But we can track the confusion matrix image if we want:
+    outs:
+      - evaluation_confusion_matrix.png

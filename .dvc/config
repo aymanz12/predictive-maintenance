@@ -1,0 +1,6 @@
+[core]
+    remote = my_s3_remote
+[cache]
+    type = copy
+['remote "my_s3_remote"']
+    url = s3://predictive-maintenance-artifacts-ayman/dvc-store

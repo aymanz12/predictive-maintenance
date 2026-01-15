@@ -1,0 +1,28 @@
+data:
+  raw_path: "data/raw/predictive_maintenance.csv"
+  processed_train_path: "data/processed/train.csv"
+  processed_test_path: "data/processed/test.csv"
+  dataset_url: "https://archive.ics.uci.edu/ml/machine-learning-databases/00601/ai4i2020.csv"
+
+training:
+  test_size: 0.2
+  random_state: 42
+  target_col: "machine_failure"
+  stratify_col: "machine_failure"
+
+model:
+  name: "xgboost"
+  params:
+    objective: "binary:logistic"
+    random_state: 42
+    n_jobs: -1
+    n_estimators: 458
+    max_depth: 8
+    learning_rate: 0.2187
+    subsample: 0.8343
+    colsample_bytree: 0.7812
+    scale_pos_weight: 15.50
+
+artifacts:
+  model_path: "models/xgboost_model.pkl"
+  engineer_path: "models/feature_engineer.pkl"
