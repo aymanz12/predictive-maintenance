@@ -57,7 +57,7 @@ jobs:
 
       - name: Install DVC
         run: |
-          pip install dvc dvc-s3
+          pip install "dvc[s3]"
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
