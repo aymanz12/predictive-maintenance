@@ -78,11 +78,11 @@ predictive-maintenance/
 ├── data/                  # Data directory (tracked by DVC)
 ├── docker/
 │   ├── Dockerfile         # Container definition
+│   ├── entrypoint.sh
 │   └── task-definition.json
 ├── mlruns/                # MLflow tracking data
 ├── models/                # Saved models (tracked by DVC/MLflow)
 ├── notebooks/             # Jupyter notebooks for EDA and experiments
-├── scripts/               # Utility scripts
 ├── src/                   # Source code
 │   ├── data/
 │   ├── features/
