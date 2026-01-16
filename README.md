@@ -31,7 +31,8 @@ graph TD
         H -->|Build| L
         L -->|Push| M[AWS ECR]
         M -->|Deploy| N[AWS ECS Fargate]
-        N -.->|Serve| Q[FastAPI Backend]
+        N -.->|Register| LB[Application Load Balancer]
+        LB -.->|Serve| Q[FastAPI Backend]
     end
 
     subgraph User Interface
@@ -45,6 +46,7 @@ graph TD
     style I fill:#f9f,stroke:#333
     style K fill:#bbf,stroke:#333
     style N fill:#bfb,stroke:#333
+    style LB fill:#bfb,stroke:#333
     style Q fill:#bfb,stroke:#333
 ```
 
@@ -55,7 +57,7 @@ graph TD
 -   **Modeling**: ![XGBoost](https://img.shields.io/badge/XGBoost-EB9924?style=flat&logo=xgboost&logoColor=white) ![Scikit-Learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white) ![Pandas](https://img.shields.io/badge/pandas-150458?style=flat&logo=pandas&logoColor=white)
 -   **API**: ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
 -   **Containerization**: ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
--   **Cloud Ops**: ![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat&logo=amazon-aws&logoColor=white) (ECR Registry, ECS Fargate Compute)
+-   **Cloud Ops**: ![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat&logo=amazon-aws&logoColor=white) (ECR Registry, ECS Fargate Compute, Application Load Balancer)
 -   **App**: ![Gradio](https://img.shields.io/badge/Gradio-FD6F00?style=flat&logo=gradio&logoColor=white)
 
 ## 📂 Project Structure
@@ -148,3 +150,6 @@ This project is configured for continuous deployment. However, you can manually 
     ```bash
     aws ecs update-service --cluster <cluster_name> --service <service_name> --force-new-deployment
     ```
+
+4.  **Access the Application**
+    The application is exposed via an Application Load Balancer. Use the DNS name provided by the ALB to access the application at `http://<alb-dns-name>`.
