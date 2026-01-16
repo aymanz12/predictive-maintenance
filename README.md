@@ -64,12 +64,15 @@ graph TD
 predictive-maintenance/
 ├── .dvc/                  # DVC configuration
 ├── .dvcignore
+├── .gitignore
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml     # CI/CD Pipeline
 ├── app/
 │   └── gradio_app.py      # Frontend Application
 ├── api/                   # FastAPI Backend
+│   ├── main.py
+│   └── schemas.py
 ├── assets/
 │   └── app_screenshot.png
 ├── data/                  # Data directory (tracked by DVC)
