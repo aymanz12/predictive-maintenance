@@ -21,6 +21,17 @@ graph TD
         I --> J[Metrics & Confusion Matrix]
     end
 
+    subgraph AWS Cloud Storage
+        S3[(AWS S3 Bucket)]
+    end
+
+    %% DVC Sync
+    B -.->|DVC Push| S3
+    D -.->|DVC Push| S3
+    E -.->|DVC Push| S3
+    G -.->|DVC Push| S3
+    H -.->|DVC Push| S3
+
     subgraph MLflow
         F -.->|Log Params/Metrics| K{MLflow Tracking Server}
         I -.->|Log Metrics| K
@@ -42,6 +53,7 @@ graph TD
 
     style A fill:#f9f,stroke:#333
     style C fill:#f9f,stroke:#333
+    style S3 fill:#E67E22,stroke:#333,color:white
     style F fill:#f9f,stroke:#333
     style I fill:#f9f,stroke:#333
     style K fill:#bbf,stroke:#333
