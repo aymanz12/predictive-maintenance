@@ -244,7 +244,7 @@ def get_prediction(air_temperature, process_temperature, rotational_speed, torqu
 
 # Create Enhanced Gradio Interface
 # Note: Theme and CSS moved to launch() as per deprecation warning
-with gr.Blocks(title="🏭 Predictive Maintenance AI") as demo:
+with gr.Blocks(title="🏭 Predictive Maintenance AI", theme=gr.themes.Soft(), css=custom_css) as demo:
     
     gr.Markdown("# 🏭 Predictive Maintenance AI Dashboard")
     gr.Markdown("<p class='subtitle'>🤖 AI-powered machine failure prediction system using XGBoost ML model</p>")
@@ -329,10 +329,7 @@ with gr.Blocks(title="🏭 Predictive Maintenance AI") as demo:
     )
 
 if __name__ == "__main__":
-    # Pass theme and css here as per deprecation warning
     demo.launch(
         server_name="0.0.0.0", 
-        server_port=7860,
-        theme=gr.themes.Soft(),
-        css=custom_css
+        server_port=7860
     )
