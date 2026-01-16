@@ -1,5 +1,5 @@
 {
-    "family": "mlops-task", // <-- CHANGED to match AWS Console
+    "family": "mlops-task",
     "containerDefinitions": [
         {
             "name": "predictive-maintenance-container",
@@ -33,7 +33,7 @@
         "FARGATE"
     ],
     "networkMode": "awsvpc",
-    "cpu": "512", // <-- INCREASED slightly for safety (0.5 vCPU)
-    "memory": "1024", // <-- INCREASED to 1GB (matches what we set in Console)
+    "cpu": "512",
+    "memory": "1024",
     "executionRoleArn": "arn:aws:iam::586197446329:role/ecsTaskExecutionRole"
 }
