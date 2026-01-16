@@ -7,34 +7,43 @@
 ## 🏗️ Architecture
 
 ```mermaid
-graph LR
-    subgraph Data Layer
-        A[Raw Data] -->|DVC + S3| B[(AWS S3)]
+graph TD
+    subgraph DVC Pipeline
+        A[Ingestion Script] -->|src.data.ingestion| B(data/raw/predictive_maintenance.csv)
+        B -->|src.data.preprocessing| C[Preprocessing Script]
+        C --> D(data/processed/train.csv)
+        C --> E(data/processed/test.csv)
+        D -->|src.pipelines.training| F[Training Pipeline]
+        F --> G(models/xgboost_model.pkl)
+        F --> H(models/feature_engineer.pkl)
+        E -->|src.pipelines.evaluation| I[Evaluation Pipeline]
+        G --> I
+        I --> J[Metrics & Confusion Matrix]
     end
-    
-    subgraph Training Layer
-        B --> C[Python Training Script]
-        C -->|Train| D[XGBoost Model]
-        C -->|Log Metrics| E[MLflow]
+
+    subgraph MLflow
+        F -.->|Log Params/Metrics| K{MLflow Tracking Server}
+        I -.->|Log Metrics| K
     end
-    
-    subgraph Packaging
-        D --> F[Docker Container]
-    end
-    
+
     subgraph Deployment
-        F -->|Push| G[AWS ECR]
-        G -->|Deploy| H[AWS ECS Fargate]
+        G -->|Build| L[Docker Container]
+        H -->|Build| L
+        L -->|Push| M[AWS ECR]
+        M -->|Deploy| N[AWS ECS Fargate]
     end
-    
+
     subgraph User Interface
-        H --> I[Gradio App]
-        I -->|Interact| J((End User))
+        N --> O[Gradio App]
+        O --> P((End User))
     end
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style H fill:#bbf,stroke:#333,stroke-width:2px
-    style I fill:#bfb,stroke:#333,stroke-width:2px
+
+    style A fill:#f9f,stroke:#333
+    style C fill:#f9f,stroke:#333
+    style F fill:#f9f,stroke:#333
+    style I fill:#f9f,stroke:#333
+    style K fill:#bbf,stroke:#333
+    style N fill:#bfb,stroke:#333
 ```
 
 ## 🛠️ Tech Stack
