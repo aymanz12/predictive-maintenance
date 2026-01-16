@@ -8,7 +8,7 @@
 
 ```mermaid
 graph TD
-    subgraph DVC Pipeline
+    subgraph DP [DVC Pipeline]
         A[Ingestion Script] -->|src.data.ingestion| B(data/raw/predictive_maintenance.csv)
         B -->|src.data.preprocessing| C[Preprocessing Script]
         C --> D(data/processed/train.csv)
@@ -26,11 +26,7 @@ graph TD
     end
 
     %% DVC Sync
-    B -.->|DVC Push| S3
-    D -.->|DVC Push| S3
-    E -.->|DVC Push| S3
-    G -.->|DVC Push| S3
-    H -.->|DVC Push| S3
+    DP -.->|DVC Push/Pull| S3
 
     subgraph MLflow
         F -.->|Log Params/Metrics| K{MLflow Tracking Server}
