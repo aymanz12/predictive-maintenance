@@ -66,6 +66,7 @@ predictive-maintenance/
 │       └── deploy.yml     # CI/CD Pipeline
 ├── app/
 │   └── gradio_app.py      # Frontend Application
+├── api/                   # FastAPI Backend
 ├── assets/
 │   └── app_screenshot.png
 ├── data/                  # Data directory (tracked by DVC)
